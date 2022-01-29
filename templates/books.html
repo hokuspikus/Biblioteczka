@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block slonina %}
+    <ul>
+        {% for book in books %}
+            <li>{{ book }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block slonina %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="title" name="title">
+        <select name="author_id">
+            {% for author in authors %}
+                <option value="{{ author.id }}"> {{ author }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="dodaj">
+    </form>
+{% endblock %}
