@@ -2,6 +2,7 @@ from django.db import models
 
 
 # Create your models here.
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -19,6 +20,9 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+    def get_absolute_url(self):
+        return reverse('book_detail_view', args=(self.pk, ))
 
 
 class Publisher(models.Model):

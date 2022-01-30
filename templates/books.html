@@ -1,9 +1,4 @@
 {% extends 'base.html' %}
 {% block slonina %}
-  <ul>
-    {% for obj in books %}
-        <li><a href="{% url 'book_detail_view'  obj.id %}"> {{obj}}</a></li>
-    {% endfor %}
-</ul>
-
+{% include 'list_view.html' with objects_list=books %}
 {% endblock %}
