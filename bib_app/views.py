@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 # Create your views here.
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import CreateView
 
 from bib_app.forms import AddPublisherForm, AddBookForm, CategoryForm, BookModelForm
 from bib_app.models import Author, Book, Publisher
@@ -31,14 +33,14 @@ class AddAuthor(View):
 class AddBook(View):
     def get(self, request):
         form = BookModelForm()
-        return render(request, 'addBookFrom.html', {'form': form})
+        return render(request, 'form.html', {'form': form})
 
     def post(self, request):
         form = BookModelForm(request.POST)
         if form.is_valid():
             book = form.save()
             return redirect('books')
-        return render(request, 'addBookFrom.html', {'form': form})
+        return render(request, 'form.html', {'form': form})
 
 class BooksView(View):
     def get(self, request):
@@ -51,7 +53,7 @@ class AddPublisherView(View):
     def get(self, request):
         form = AddPublisherForm()
         publishers = Publisher.objects.all()
-        return render(request, 'addPublisher.html', {'form':form,'publishers':publishers})
+        return render(request, 'form.html', {'form':form,'publishers':publishers})
 
 
     def post(self, request):
@@ -62,31 +64,38 @@ class AddPublisherView(View):
             Publisher.objects.create(name=name, year=year)
             #Publisher.objects.create(**form.cleaned_data)
             return redirect('books')
-        return render(request, 'addPublisher.html', {'form': form})
+        return render(request, 'form.html', {'form': form})
 
 
 class AddBookFormView(View):
     def get(self, request):
         form = AddBookForm()
-        return render(request, 'addBookFrom.html', {'form':form})
+        return render(request, 'form.html', {'form':form})
 
     def post(self, request):
         form = AddBookForm(request.POST)
         if form.is_valid():
             Book.objects.create(**form.cleaned_data)
             return redirect('add_book_form_view')
-        return render(request, 'addBookFrom.html', {'form': form})
+        return render(request, 'form.html', {'form': form})
 
 
 
 class AddCategoryView(View):
     def get(self, request):
         form = CategoryForm()
-        return render(request, 'addCategoryForm.html', {'form':form})
+        return render(request, 'form.html', {'form':form})
 
     def post(self, request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             category = form.save()
             return redirect('add_category')
-        return render(request, 'addCategoryForm.html', {'form': form})
+        return render(request, 'form.html', {'form': form})
+
+
+class CreateBookView(CreateView):
+    model = Book
+    form_class = BookModelForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('books') # '/books/'

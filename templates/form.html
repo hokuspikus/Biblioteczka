@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block slonina %}
+    <b>Tytuł</b>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
