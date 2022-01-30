@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from bib_app.models import Author, Category
+from bib_app.models import Author, Category, Book
 
 
 def check_year(value):
@@ -45,4 +45,9 @@ class CategoryForm(forms.ModelForm):
         fields = ['name'] # exclude=['name'] | fields = '__all__'
 
 
+class BookModelForm(forms.ModelForm):
+
+    class Meta:
+        model = Book
+        fields = '__all__'
 
