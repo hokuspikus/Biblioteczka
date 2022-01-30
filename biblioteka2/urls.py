@@ -24,4 +24,5 @@ urlpatterns = [
     path('add_author/', views.AddAuthor.as_view(), name='add_authors'),
     path('add_book/', views.AddBook.as_view(), name='add_book'),
     path('books/', views.BooksView.as_view(), name='books'),
+    path('add_publisher/', views.AddPublisherView.as_view(), name='add_publisher'),
 ]

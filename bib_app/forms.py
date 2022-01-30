@@ -1,0 +1,22 @@
+from django import forms
+from django.core.exceptions import ValidationError
+
+
+def check_year(value):
+    if value < 1000:
+        raise ValidationError("Nie było wydawnictw przed 1000 rokiem")
+
+def check_if_slawomir(value):
+    a = ['slawek', 'kasia', 'gosia', 'martyna']
+    if value in a:
+        raise ValidationError("Tego człowieka nie obsługujemy")
+
+def check_year_2(value):
+
+    if value > 3000:
+        raise ValidationError("naprawde ?? ")
+
+
+class AddPublisherForm(forms.Form):
+    name = forms.CharField(validators=[check_if_slawomir])
+    year = forms.IntegerField(validators=[check_year, check_year_2])

@@ -1,9 +1,4 @@
 {% extends 'base.html' %}
 {% block slonina %}
-    <ul>
-        {% for book in books %}
-            <li>{{ book }}</li>
-        {% endfor %}
-    </ul>
-
+    {% include 'list_view.html' with objects_list=books %}
 {% endblock %}

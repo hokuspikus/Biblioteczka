@@ -1,8 +1,4 @@
 {% extends 'base.html' %}
 {% block slonina %}
-<ul>
-    {% for author in authors %}
-        <li>{{ author }}</li>
-    {% endfor %}
-</ul>
+       {% include 'list_view.html' with objects_list=authors %}
 {% endblock %}
