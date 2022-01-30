@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block slonina %}
+    <p>{{ object.pk }}</p>
+    <p>{{ object.title }}</p>
+    <p>{{ object.author }}</p>
+
+    <p>Kategorie<ul>
+        {% for item in object.category.all %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    </p>
+{% endblock %}

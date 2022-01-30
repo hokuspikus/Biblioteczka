@@ -28,4 +28,5 @@ urlpatterns = [
     path('add_book_form/', views.AddBookFormView.as_view(), name='add_book_form_view'),
     path('add_book_by_create_view/', views.CreateBookView.as_view(), name='add_book_by_create_view'),
     path('add_category_form/', views.AddCategoryView.as_view(), name='add_category'),
+    path('book/<int:pk>/', views.BookDetailView.as_view(), name='book_detail_view'),
 ]

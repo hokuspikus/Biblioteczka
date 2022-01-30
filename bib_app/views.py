@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from bib_app.forms import AddPublisherForm, AddBookForm, CategoryForm, BookModelForm
 from bib_app.models import Author, Book, Publisher
@@ -99,3 +99,7 @@ class CreateBookView(CreateView):
     form_class = BookModelForm
     template_name = 'form.html'
     success_url = reverse_lazy('books') # '/books/'
+
+class BookDetailView(DetailView):
+    model = Book
+    template_name = 'book_detail_view.html'
