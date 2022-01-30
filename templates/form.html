@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block slonina %}
     <b>Tytuł</b>
-    <form method="post">
+    <form method="post" class="form_class">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit">

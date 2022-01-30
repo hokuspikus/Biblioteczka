@@ -51,6 +51,6 @@ class BookModelForm(forms.ModelForm):
         model = Book
         fields = '__all__'
         widgets = {
-            'category':forms.CheckboxSelectMultiple
+            'category':forms.CheckboxSelectMultiple(attrs={'class':'jakies_styl', 'super_moc':'django'})
         }
 
