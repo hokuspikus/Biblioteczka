@@ -25,4 +25,5 @@ urlpatterns = [
     path('add_book/', views.AddBook.as_view(), name='add_book'),
     path('books/', views.BooksView.as_view(), name='books'),
     path('add_publisher/', views.AddPublisherView.as_view(), name='add_publisher'),
+    path('add_book_form/', views.AddBookFormView.as_view(), name='add_book_form_view'),
 ]

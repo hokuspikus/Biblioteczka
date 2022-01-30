@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views import View
 
-from bib_app.forms import AddPublisherForm
+from bib_app.forms import AddPublisherForm, AddBookForm
 from bib_app.models import Author, Book, Publisher
 
 
@@ -63,5 +63,18 @@ class AddPublisherView(View):
             #Publisher.objects.create(**form.cleaned_data)
             return redirect('books')
         return render(request, 'addPublisher.html', {'form': form})
+
+
+class AddBookFormView(View):
+    def get(self, request):
+        form = AddBookForm()
+        return render(request, 'addBookFrom.html', {'form':form})
+
+    def post(self, request):
+        form = AddBookForm(request.POST)
+        if form.is_valid():
+            Book.objects.create(**form.cleaned_data)
+            return redirect('add_book_form_view')
+        return render(request, 'addBookFrom.html', {'form': form})
 
 
