@@ -8,6 +8,8 @@ from bib_app.forms import AddPublisherForm, AddBookForm, CategoryForm, BookModel
 from bib_app.models import Author, Book, Publisher
 
 
+
+
 class Index(View):
     def get(self, request):
         return render(request, 'base.html')
