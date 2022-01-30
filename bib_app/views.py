@@ -1,10 +1,9 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
 # Create your views here.
 from django.views import View
 
-from bib_app.models import Author, Book
+from bib_app.forms import AddPublisherForm
+from bib_app.models import Author, Book, Publisher
 
 
 class Index(View):
@@ -45,3 +44,24 @@ class BooksView(View):
     def get(self, request):
         books= Book.objects.all()
         return render(request, 'books.html',  {'books':books})
+
+
+class AddPublisherView(View):
+
+    def get(self, request):
+        form = AddPublisherForm()
+        publishers = Publisher.objects.all()
+        return render(request, 'addPublisher.html', {'form':form,'publishers':publishers})
+
+
+    def post(self, request):
+        form = AddPublisherForm(request.POST)
+        if form.is_valid():
+            year = form.cleaned_data['year']
+            name = form.cleaned_data['name']
+            Publisher.objects.create(name=name, year=year)
+            #Publisher.objects.create(**form.cleaned_data)
+            return redirect('books')
+        return render(request, 'addPublisher.html', {'form': form})
+
+

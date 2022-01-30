@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block slonina %}
+    <form method="post">
+    {% csrf_token %}
+        <table>
+    {{ form.as_table }}
+            </table>
+    <input type="submit">
+    </form>
+
+    {% include 'list_view.html' with objects_list=publishers %}
+
+{% endblock %}
