@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views import View
 
-from bib_app.forms import AddPublisherForm, AddBookForm
+from bib_app.forms import AddPublisherForm, AddBookForm, CategoryForm
 from bib_app.models import Author, Book, Publisher
 
 
@@ -78,3 +78,15 @@ class AddBookFormView(View):
         return render(request, 'addBookFrom.html', {'form': form})
 
 
+
+class AddCategoryView(View):
+    def get(self, request):
+        form = CategoryForm()
+        return render(request, 'addCategoryForm.html', {'form':form})
+
+    def post(self, request):
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save()
+            return redirect('add_category')
+        return render(request, 'addCategoryForm.html', {'form': form})

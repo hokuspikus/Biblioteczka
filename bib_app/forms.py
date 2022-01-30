@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from bib_app.models import Author
+from bib_app.models import Author, Category
 
 
 def check_year(value):
@@ -36,6 +36,13 @@ class AddPublisherForm(forms.Form):
 class AddBookForm(forms.Form):
     title = forms.CharField()
     author = forms.ModelChoiceField(queryset=Author.objects.all())
+
+
+class CategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ['name'] # exclude=['name'] | fields = '__all__'
 
 
 
