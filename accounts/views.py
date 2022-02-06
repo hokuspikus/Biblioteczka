@@ -1,10 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, HttpResponse
 
 # Create your views here.
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import CreateView
 
-from accounts.forms import LoginForm
+from accounts.forms import LoginForm, UserCreationForm, UserPermissionForm
 
 
 class LoginView(View):
@@ -21,9 +24,44 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+            else:
+                return HttpResponse('cokolwiek')
         return redirect('index')
+
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('index')
+
+
+class UserCreationView(CreateView):
+    model = User
+    template_name = 'form.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('register')
+
+    def form_valid(self, form):
+        ret_val = super().form_valid(form)
+        self.object.set_password(form.cleaned_data['pass_1'])
+        return ret_val
+
+class UserPermissionView(View):
+    def get(self, request, id):
+        user = User.objects.get(pk=id)
+        form= UserPermissionForm(instance=user)
+        return render(request, 'form.html', {'form':form})
+
+    def post(self, request, id):
+        user = User.objects.get(pk=id)
+        form = UserPermissionForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+        return render(request, 'form.html', {'form': form})
+
+
+
+
+
+
+
